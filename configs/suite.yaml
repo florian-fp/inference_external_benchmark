@@ -1,0 +1,24 @@
+# InferenceX fixed-sequence ("fixed-seq-len") benchmark suite.
+# Values mirror InferenceX's own sweep (infx/bench/fixed_seq.py, infx/srt_slurm/generate.py)
+# so results are comparable to the published reference curves. Change them only on purpose.
+
+model:
+  # HuggingFace id of the weights every provider serves. Used for the tokenizer that builds the
+  # random prompts and as the model id in results. Must be the same model on every provider.
+  hf_id: ${BENCH_MODEL_HF_ID}
+  trust_remote_code: true
+
+workloads:
+  - {isl: 8192, osl: 1024}  # InferenceX's primary active fixed-sequence scenario
+  - {isl: 1024, osl: 1024}  # deprecated upstream on 2026-07-17; older reference data exists
+
+# Prompt lengths are drawn uniformly from [ratio * len, len].
+random_range_ratio: "0.8"
+
+# InferenceX steps concurrency by 2x between conc-start and conc-end.
+concurrency: [1, 2, 4, 8, 16, 32, 64, 128, 256]
+
+# Per point: 10 x conc measured requests after 2 x conc warmup requests.
+num_prompts_per_conc: 10
+num_warmups_per_conc: 2
+seed: 0

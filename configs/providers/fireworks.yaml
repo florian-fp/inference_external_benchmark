@@ -1,0 +1,17 @@
+name: fireworks
+display_name: Fireworks (dedicated)
+base_url: https://api.fireworks.ai/inference
+# openai -> /v1/completions (what InferenceX uses); openai-chat -> /v1/chat/completions
+backend: openai
+# Address the dedicated deployment, not the serverless model, e.g.
+#   accounts/<account>/deployedModels/<deployed-model-name>
+#   accounts/fireworks/models/<model>#accounts/<account>/deployments/<deployment-id>
+served_model_name: ${FIREWORKS_SERVED_MODEL_NAME}
+api_key_env: FIREWORKS_API_KEY
+hardware:
+  gpu_type: ${FIREWORKS_GPU_TYPE}
+  # Total GPUs behind the deployment during the run: GPUs per replica x replicas.
+  # Pin min = max replicas while benchmarking so autoscaling cannot change this mid-sweep.
+  gpus: ${FIREWORKS_TOTAL_GPUS}
+  hourly_cost_usd: null  # set to the deployment's $/hour to get $/M tokens
+notes: ""

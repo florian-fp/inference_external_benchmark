@@ -1,0 +1,17 @@
+name: baseten
+display_name: Baseten (dedicated)
+# Dedicated deployment, OpenAI-compatible route. The model id is in the dashboard URL
+# (.../models/<model_id>/...). Use environments/<env> or deployment/<deployment_id> to pin a target.
+base_url: https://model-${BASETEN_MODEL_ID}.api.baseten.co/environments/production/sync
+# openai -> /v1/completions (what InferenceX uses); openai-chat -> /v1/chat/completions
+backend: openai
+# Must match the deployment's served model name.
+served_model_name: ${BASETEN_SERVED_MODEL_NAME}
+api_key_env: BASETEN_API_KEY
+hardware:
+  gpu_type: ${BASETEN_GPU_TYPE}
+  # Total GPUs behind the endpoint during the run: GPUs per replica x replicas.
+  # Pin min = max replicas while benchmarking so autoscaling cannot change this mid-sweep.
+  gpus: ${BASETEN_TOTAL_GPUS}
+  hourly_cost_usd: null  # set to the deployment's $/hour to get $/M tokens
+notes: ""

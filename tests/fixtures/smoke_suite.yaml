@@ -1,0 +1,10 @@
+model:
+  hf_id: ${BENCH_MODEL_HF_ID}
+  trust_remote_code: false
+workloads:
+  - {isl: 256, osl: 64}
+random_range_ratio: "0.8"
+concurrency: [1, 4, 16]
+num_prompts_per_conc: 10
+num_warmups_per_conc: 2
+seed: 0

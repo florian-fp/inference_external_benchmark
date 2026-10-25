@@ -1,0 +1,22 @@
+[project]
+name = "inference-external-benchmark"
+version = "0.1.0"
+description = "InferenceX fixed-sequence benchmarks against external dedicated inference endpoints"
+requires-python = ">=3.10"
+dependencies = [
+    # Runtime deps of the vendored InferenceX client (vendor/infx/bench_serving).
+    "aiohttp>=3,<4",
+    "huggingface_hub",
+    "numpy>=1.26",
+    "tqdm",
+    "transformers>=4.51",
+    # This harness.
+    "matplotlib>=3,<4",
+    "pyyaml>=6,<7",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

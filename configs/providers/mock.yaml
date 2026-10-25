@@ -1,0 +1,12 @@
+# Local mock server for smoke tests: python scripts/mock_openai_server.py --port 8000
+name: mock
+display_name: Mock (local smoke test)
+base_url: http://127.0.0.1:8000
+backend: openai
+served_model_name: mock
+api_key_env: null
+tokenizer: ${MOCK_TOKENIZER}
+hardware:
+  gpu_type: none
+  gpus: 1
+  hourly_cost_usd: 1.0
